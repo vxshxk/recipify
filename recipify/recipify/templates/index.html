@@ -1,0 +1,34 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>RecipifyAI</title>
+        {% block style %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <div class="recipify-heading">RecipifyAI</div>
+
+        <!-- Any error/success messages -->
+        {% if messages %}
+            {% for message in messages %}
+                <div>
+                    <div>
+                        <span>{{ message }}</span>
+                        <span>{{ message.id }}</span>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <!-- Main content of the page -->
+        {% block content %}
+        {% endblock %}
+
+        <!-- Any neccessary JS -->
+        {% block script %}
+        {% endblock %}
+    </body>
+</html>
