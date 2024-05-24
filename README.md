@@ -6,6 +6,12 @@ A Computer Vision based application to detect food ingredients uploaded as image
 
 ## Installation
 
+1. Clone the repository with `git clone https://github.com/vxshxk/recipify-.git`
+2. Install django to your local system with `python -m pip install Django`
+3. `cd` into the `recipify/` directory
+4. To run the server, type `python manage.py runserver`
+5. Head to `http://127.0.0.1:8000` to see the webpage
+
 ----------------------------------------------------------------------------
 
 ## Frameworks
