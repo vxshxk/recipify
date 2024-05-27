@@ -19,7 +19,7 @@
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">RecipifyAI</span>
                 </a>
                 <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
+                    <button type="button" id="get-started-btn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
                 </button>
                 </div>
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
@@ -48,7 +48,24 @@
             <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">At RecipifyAI, we encourage efficient and nutritious eating powered by Computer Vision and Machine Learning</p>
         </div>
 
+        
         <div class="space"></div>
+
+        <div id="image-upload-section" class="image-upload-section">
+            <form>
+                <label for="image-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Upload an image:</label>
+                <input type="file" id="image-input" name="image-input" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                <button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            </form>
+        </div>
+        
+
+        <!-- <div id="image-upload-section">
+            <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+            <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file">
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+        </div>         -->
+
 
         <!-- Any error/success messages -->
         {% if messages %}
@@ -68,6 +85,11 @@
 
         <!-- Any neccessary JS -->
         {% block script %}
+        <script>
+            document.getElementById('get-started-btn').addEventListener('click', function() {
+                document.getElementById('image-upload-section').scrollIntoView({ behavior: 'smooth' });
+            });
+        </script>
         {% endblock %}
     </body>
 </html>
