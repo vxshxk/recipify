@@ -39,7 +39,7 @@ def image_formatter(img):
     return proc
 
 
-image_path = 'img.jpg'
+image_path = 'ADD_YOUR_IMAGE_PATH_HERE'
 img = Image.open(image_path)
 img_canny = image_formatter(img)
 
