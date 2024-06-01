@@ -69,3 +69,6 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 cover/
+
+# Local uploaded files
+media/
