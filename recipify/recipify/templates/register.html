@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+{% load static %}
+<html>
+    <head>
+        <title>Register</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    </head>
+
+    <body>
+        <div class="heading">
+            <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Register</span></h1>
+            <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Kindly create an account before proceeding</p>
+        </div>
+        <div class="login-row" style="">
+            <div class="w-full max-w-xs">
+                <form method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    Username
+                    </label>
+                    {{form.username}}
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    Password
+                    </label>
+                    {{form.password1}}
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    Re-enter password
+                    </label>
+                    {{form.password2}}
+                </div>
+                <div class="flex items-center justify-between">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Register
+                    </button>
+                    <a class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="{% url 'login' %}">
+                    Login
+                    </a>
+                </div>
+                </form>
+                <p class="text-center text-gray-500 text-xs">
+                &copy;2024 RecipifyAI&#39;s documentation
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
