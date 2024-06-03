@@ -1,0 +1,14 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - 8000:8000
+    networks:
+      - app_network
+  
+# created a network to link all services to
+# docker compose creates its own network but its better practice to mention your own network
+networks:
+  app_network:
+    driver: bridge
