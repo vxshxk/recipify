@@ -21,7 +21,7 @@ python -m pip install -r requirements.txt
 ```
 python manage.py migrate
 ```
-7. To run the server, enter the command (needs to be entetred everytime the app server is to be started)
+7. To run the server, enter the command (needs to be entered everytime the app server is to be started)
 ```
 python manage.py runserver
 ```
