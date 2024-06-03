@@ -1,6 +1,7 @@
 FROM python:3.11-bullseye
 WORKDIR /app
 COPY requirements.txt /app/
+RUN apt-get update && apt-get install libgl1 -y
 RUN python -m pip install -r requirements.txt
 COPY . /app/
 RUN cd /app/recipify/ && python manage.py migrate
