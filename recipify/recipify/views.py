@@ -11,21 +11,7 @@ import base64
 import re
 @login_required
 def index(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-        else:
-            form = UploadFileForm()
-    
-    images = FoodImage.objects.all()
-    form = UploadFileForm()
-    context = {
-        'form': form,
-        'images': images,
-    }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 @login_required
 def gallery(request):
