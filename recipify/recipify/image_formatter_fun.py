@@ -8,8 +8,6 @@ def image_formatter(img):
     if img is None:
         raise ValueError("Image not found or cannot be opened.")
     
-    img = Image.open(img)
-    
     # Apply sharpening using PIL
     proc = ImageEnhance.Sharpness(img)
     proc = proc.enhance(2)

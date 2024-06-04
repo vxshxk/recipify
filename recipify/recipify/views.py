@@ -10,6 +10,7 @@ from django.core.files.storage import FileSystemStorage
 import base64
 import re
 from .utils import image_formatter
+from PIL import Image
 
 @login_required
 def index(request):
@@ -57,9 +58,16 @@ def image_upload_view(request):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            img = form.save()
+            # Open the image using PIL
+            try:
+                img = Image.open(img.image.path)
+            except IOError:
+                return HttpResponse("Image not found or cannot be opened.", status=404)
+            # Process the image with Vishak's function
+            processed_image = image_formatter(img)
+            print(processed_image)
             return redirect('image_upload')
-        
     else:
         form = UploadFileForm()
     return render(request, 'upload.html', {'form': form})
