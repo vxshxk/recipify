@@ -23,13 +23,15 @@ jobs:
           python-version: '3.11.9'
       - name: Check Python version
         run: python --version
-      # - name: Upgrade pip
-      #   run: sudo pip3 install --upgrade pip
-      # - name: Install requirements.txt
-      #   run: pip install -r requirements.txt
-      - name: List files
-        run: ls
-      - name: cd to manage.py directory
-        run: cd recipify
-      - name: List files again
-        run: ls
+      - name: Upgrade pip
+        run: sudo pip3 install --upgrade pip
+      - name: Install requirements.txt
+        run: pip install -r requirements.txt
+      - name: Make Migrations
+        run: |
+            cd recipify
+            python manage.py migrate
+      - name: Run tests
+        run: |
+            cd recipify
+            python manage.py test
