@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from django.shortcuts import HttpResponse, redirect
 from .forms import SignupForm, LoginForm, UploadFileForm
 from .models import FoodImage
@@ -32,8 +33,16 @@ def loginPage(request):
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user is not None:
+                messages.success(request, "Logged in succesfully!")
                 login(request, user)
                 return redirect('home')
+            else:
+                messages.error(request, "Incorrect username or password!")
+                return redirect('login')
+
+        else:
+            for error in form.errors.values():
+                messages.error(request, error)
     else:
         form = LoginForm()
     return render(request, 'login.html', { 'form': form })
@@ -44,7 +53,11 @@ def registerPage(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, "Registration successful! Please log in")
             return redirect('login')
+        else:
+            for error in form.errors.values():
+                messages.error(request, error)
     else:
         form = SignupForm()
     return render(request, 'register.html', { 'form': form })
