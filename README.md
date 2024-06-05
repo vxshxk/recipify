@@ -40,7 +40,13 @@ docker compose up
 3. Head to [`http://127.0.0.1:8000`](http://127.0.0.1:8000) to see the webpage
 
 ----------------------------------------------------------------------------
+## Contributing
+1. Make a new branch for every single change, do NOT push to main
+2. Once all your changes are done, make a pull request to main
+3. Request approval from necessary contributors
+4. Pray for it to be merged
 
+----------------------------------------------------------------------------
 ## Frameworks
 
 ----------------------------------------------------------------------------
