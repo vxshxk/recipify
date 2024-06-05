@@ -28,7 +28,7 @@ jobs:
       - name: Install requirements.txt
         run: pip install -r requirements.txt
       - name: cd To Working Directory
-        run: cd Recipfy/recipify-/recipify
+        run: cd recipify
       - name: Run Migrations
         run: python manage.py migrate
       - name: Run Test
