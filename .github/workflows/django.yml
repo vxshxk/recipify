@@ -20,7 +20,7 @@ jobs:
       - name: Setup python environment
         uses: actions/setup-python@v3
         with:
-          python-version: '3.x'
+          python-version: '3.11.9'
       - name: Check Python version
         run: python --version
       - name: Upgrade pip
