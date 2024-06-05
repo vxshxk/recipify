@@ -6,7 +6,9 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="{% static 'css/login.css' %}">
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet"/>
     </head>
 
     <body>
@@ -14,6 +16,17 @@
             <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl"><span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Login</span></h1>
             <p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">Kindly log into your account before proceeding</p>
         </div>
+
+        {% if messages %}
+            <div id="messages">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <div class="login-row" style="">
             <div class="w-full max-w-xs">
                 <form method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -44,5 +57,20 @@
                 </p>
             </div>
         </div>
+
+        <script>
+            $(document).ready(function() {
+                // Convert django messages to toastr notifications
+                $('#messages .alert').each(function() {
+                    var message = $(this).text().trim();
+                    var type = $(this).hasClass('alert-error') ? 'error' : 'success';
+                    toastr[type](message);
+                });
+
+            });
+
+            $('#messages').hide();
+
+        </script>
     </body>
 </html>
