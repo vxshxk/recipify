@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image,ImageEnhance
 
 
-def image_formatter(img):
+def imageFormatter(img):
     if img is None:
         raise ValueError("Image not found or cannot be opened.")
     
@@ -41,7 +41,7 @@ def image_formatter(img):
 
 image_path = 'examples/aaa.jpg'
 img = Image.open(image_path)
-img_canny = image_formatter(img)
+img_canny = imageFormatter(img)
 
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 ax[0].imshow(cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB))
