@@ -1,5 +1,5 @@
-from image_formatter_fun import imageFormatter
-from gemini_call_fun import getRecipes
+from util_functions.image_formatter_fun import imageFormatter
+from util_functions.gemini_call_fun import getRecipes
 
 import cv2
 import matplotlib.pyplot as plt
