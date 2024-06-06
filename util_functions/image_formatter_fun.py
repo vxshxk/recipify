@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image,ImageEnhance
 
 
-def imageFormatter(img):
+def image_formatter(img):
     if img is None:
         raise ValueError("Image not found or cannot be opened.")
     
@@ -39,9 +39,9 @@ def imageFormatter(img):
     return proc
 
 
-image_path = 'aaa.jpg'
+image_path = 'examples/aaa.jpg'
 img = Image.open(image_path)
-img_canny = imageFormatter(img)
+img_canny = image_formatter(img)
 
 fig, ax = plt.subplots(1, 2, figsize=(12, 6))
 ax[0].imshow(cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB))
@@ -53,3 +53,4 @@ ax[1].set_title('Sharper image')
 ax[1].axis('off')
 
 plt.show()
+

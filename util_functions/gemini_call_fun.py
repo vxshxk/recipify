@@ -4,9 +4,6 @@ import textwrap
 
 import google.generativeai as genai
 
-from IPython.display import display
-from IPython.display import Markdown
-
 
 genai.configure(api_key='AIzaSyCs_q7nIoDNyST3L8A8c_kBb2Tkd9OhJpk')
 
@@ -46,5 +43,3 @@ def getRecipes(ingredients):
 
   response = model.generate_content("Give me the list of dishes and step by step recipe of how I can make using the following items: "+str(ingredients))
   return response.text
-
-print(getRecipeList(["milk","chocolate","ketchup","soya sauce","soyabeans","lemons","corainder","curd","meat"]))
