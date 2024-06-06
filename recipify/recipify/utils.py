@@ -1,16 +1,15 @@
-import image_formatter_fun as im
-import gemini_call_fun as gm
+from image_formatter_fun import imageFormatter
+from gemini_call_fun import getRecipes
 
 import cv2
 import matplotlib.pyplot as plt
-import numpy as np
 from PIL import Image,ImageEnhance
 
 def image_formatter(img):
-    return im.imageFormatter(img)
+    return imageFormatter(img)
 
 def getRecipeList(ingredients):
-    return gm.getRecipes(ingredients)
+    return getRecipes(ingredients)
 
 image_path = 'examples/aaa.jpg'
 img = Image.open(image_path)
