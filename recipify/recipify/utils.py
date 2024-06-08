@@ -11,3 +11,6 @@ def image_formatter(img):
 def getRecipeList(ingredients):
     return getRecipes(ingredients)
 
+# def add_new_lines(input_string):
+#     # Split the input string by '\n' and join them with actual new line characters
+#     return '\n'.join(input_string.split('\n'))
