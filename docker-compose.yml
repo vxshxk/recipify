@@ -4,6 +4,8 @@ services:
     build: .
     ports:
       - 8000:8000
+    volumes:
+      - ./recipify:/app/recipify
     networks:
       - app_network
   

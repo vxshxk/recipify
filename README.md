@@ -21,11 +21,11 @@ python -m pip install -r requirements.txt
 ```
 python manage.py migrate
 ```
-7. To run the server, enter the command (needs to be entetred everytime the app server is to be started)
+7. To run the server, enter the command (needs to be entered everytime the app server is to be started)
 ```
 python manage.py runserver
 ```
-8. Head to `http://127.0.0.1:8000` to see the webpage
+8. Head to [`http://127.0.0.1:8000`](http://127.0.0.1:8000) to see the webpage
 
 ### Docker Installation
 
@@ -40,7 +40,13 @@ docker compose up
 3. Head to [`http://127.0.0.1:8000`](http://127.0.0.1:8000) to see the webpage
 
 ----------------------------------------------------------------------------
+## Contributing
+1. Make a new branch for every single change, do NOT push to main
+2. Once all your changes are done, make a pull request to main
+3. Request approval from necessary contributors
+4. Pray for it to be merged
 
+----------------------------------------------------------------------------
 ## Frameworks
 
 ----------------------------------------------------------------------------
