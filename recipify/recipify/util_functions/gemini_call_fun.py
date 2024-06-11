@@ -115,5 +115,5 @@ def getNutrition(recipeName):
   }
   return jsonresponse
 
-print(getRecipes(["tomato", "onion", "potato", "soyabean", "soya sauce", "salt", "pepper", "chilli powder", "ginger", "garlic", "coriander", "cumin", "turmeric", "garam masala", "oil"]))
-print(getNutrition("Simple Potato & Onion Curry"))
+#print(getRecipes(["tomato", "onion", "potato", "soyabean", "soya sauce", "salt", "pepper", "chilli powder", "ginger", "garlic", "coriander", "cumin", "turmeric", "garam masala", "oil"]))
+#print(getNutrition("Simple Potato & Onion Curry"))
