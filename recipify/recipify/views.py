@@ -127,6 +127,9 @@ def image_upload_view(request):
         if 'predictions' in result:
             ingredients = [prediction['class'] for prediction in result['predictions']]
             recipe_text = getRecipes(ingredients)
+            # Save the image to the FoodImage model
+            food_image = FoodImage(image=filename)
+            food_image.save()
             return render(request, 'upload.html', {'recipes': recipe_text, 'uploaded_file_url': fs.url(filename)})
         else:
             error_message = "Failed to retrieve recipes."
