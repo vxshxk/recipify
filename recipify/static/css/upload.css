@@ -37,3 +37,9 @@ body{
     font-weight: 900;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.uploaded-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
