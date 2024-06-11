@@ -12,6 +12,18 @@ import base64
 import re
 from .utils import image_formatter
 from PIL import Image
+from .util_functions.gemini_call_fun import getRecipes
+import json
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+CLIENT = InferenceHTTPClient(
+    api_url="https://detect.roboflow.com",
+    api_key="DhYhkBrtp1M7KLVSxqPZ"
+)
 
 @login_required
 def index(request):
@@ -33,13 +45,12 @@ def loginPage(request):
             password = form.cleaned_data['password']
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                messages.success(request, "Logged in succesfully!")
+                messages.success(request, "Logged in successfully!")
                 login(request, user)
                 return redirect('home')
             else:
                 messages.error(request, "Incorrect username or password!")
                 return redirect('login')
-
         else:
             for error in form.errors.values():
                 messages.error(request, error)
@@ -66,23 +77,61 @@ def logoutPage(request):
     logout(request)
     return redirect('login')
 
+# def image_upload_view(request):
+#     recipe_text = None  # Initialize recipe_text to avoid UnboundLocalError
+#     if request.method == 'POST':
+#         form = UploadFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             img_instance = form.save()
+#             # Open the image using PIL
+#             try:
+#                 img = Image.open(img_instance.image.path)
+#             except IOError:
+#                 return HttpResponse("Image not found or cannot be opened.", status=404)
+            
+#             # Process the image with CLIENT.infer
+#             try:
+#                 result = CLIENT.infer(img, model_id="fridge-object/3")
+#                 logger.debug("Infer result: %s", result)
+#                 ingredients = [prediction['class'] for prediction in result['predictions']]
+                
+#                 # Get recipes using the detected ingredients
+#                 recipe_text = getRecipes(ingredients)
+#                 if not recipe_text:
+#                     messages.error(request, "Failed to retrieve recipes.")
+                
+#                 # Optionally, you can process the image
+#                 processed_image = image_formatter(img)
+#                 print(processed_image)
+#             except json.JSONDecodeError as e:
+#                 logger.error("JSON decode error: %s", e)
+#                 return HttpResponse(f"Error processing image: {e}", status=500)
+#     else:
+#         form = UploadFileForm()
+    
+#     return render(request, 'upload.html', {'form': form, 'recipe': recipe_text})
+
+from django.http import JsonResponse
 
 def image_upload_view(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        if form.is_valid():
-            img = form.save()
-            # Open the image using PIL
-            try:
-                img = Image.open(img.image.path)
-            except IOError:
-                return HttpResponse("Image not found or cannot be opened.", status=404)
-            # Process the image with Vishak's function
-            processed_image = image_formatter(img)
-            print(processed_image)
-            return redirect('image_upload')
-    else:
-        form = UploadFileForm()
-    return render(request, 'upload.html', {'form': form})
+    if request.method == 'POST' and 'image-input' in request.FILES:
+        image = request.FILES['image-input']
+        fs = FileSystemStorage()
+        filename = fs.save(image.name, image)
+        file_path = fs.path(filename)
 
-        
+        with open(file_path, "rb") as img_file:
+            img_base64 = base64.b64encode(img_file.read()).decode('utf-8')
+
+        result = CLIENT.infer(img_base64, model_id="fridge-object/3")
+        if 'predictions' in result:
+            ingredients = [prediction['class'] for prediction in result['predictions']]
+            recipe_text = getRecipes(ingredients)
+            return render(request, 'upload.html', {'recipes': recipe_text, 'uploaded_file_url': fs.url(filename)})
+        else:
+            error_message = "Failed to retrieve recipes."
+            return render(request, 'upload.html', {'error_message': error_message})
+    else:
+        error_message = "No image file uploaded."
+        return render(request, 'upload.html', {'error_message': error_message})
+

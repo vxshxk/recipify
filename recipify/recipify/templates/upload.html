@@ -100,7 +100,7 @@
     </div>
     
     <div id="image-upload-section" class="image-upload-section mt-24 mx-auto max-w-lg px-4">
-        <form method="post" enctype="multipart/form-data" action="{% url 'image_upload' %}">
+        <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="image-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Upload an image:</label>
             <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
@@ -108,25 +108,25 @@
             </div>
             <button type="submit" class="mt-4 w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
         </form>
-    </div>
-    
-    
+    </div> 
 
+    <div class="recipe-section mt-8 mx-auto max-w-lg">
+        <h2 class="text-2xl font-bold mb-4 flex justify-center"></h2>
+        <p></p>
+    </div>
     {% if uploaded_file_url %}
-    <div class="flex justify-center items-center min-h-screen mt-8">
-        <div class="text-center">
-            <h2 class="text-xl font-bold mb-2">Uploaded Image</h2>
-            <img src="{{ uploaded_file_url }}" alt="Uploaded Image" class="max-w-full h-auto">
-        </div>
+    <div class="image-section mt-8 mx-auto max-w-lg">
+        <h2 class="text-2xl font-bold mb-4 flex justify-center">Uploaded Image</h2>
+        <img src="{{ uploaded_file_url }}" alt="Uploaded Image" class="max-w-full h-auto">
     </div>
     {% endif %}
     
-    {% if recipe %}
+    {% if recipes %}
     <div class="recipe-section mt-8 mx-auto max-w-lg">
-        <h2 class="text-2xl font-bold mb-4 flex justify-center">Your Recipe</h2>
-        <p>{{ recipe }}</p>
+        <h2 class="text-2xl font-bold mb-4 flex justify-center">Recipes</h2>
+        <p>{{ recipes }}</p>
     </div>
-    {% endif %}
+    {% endif %} 
 
     {% block script %}
     <script>

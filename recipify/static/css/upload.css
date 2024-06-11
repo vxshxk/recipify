@@ -6,9 +6,9 @@ body {
     margin-top: 20px;
     text-align: center;
 }
-
 /* Update the #image-upload-section styles */
 #image-upload-section {
+    display: block;
     padding: 30px;
     margin-bottom: 30px;
     border-radius: 15px;
