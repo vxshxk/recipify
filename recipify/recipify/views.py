@@ -111,7 +111,6 @@ def logoutPage(request):
     
 #     return render(request, 'upload.html', {'form': form, 'recipe': recipe_text})
 
-from django.http import JsonResponse
 
 def image_upload_view(request):
     if request.method == 'POST' and 'image-input' in request.FILES:
