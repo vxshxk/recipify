@@ -1,25 +1,27 @@
-body {
-    padding-top: 100px; /* Adjust based on the height of the nav bar */
+body{
+    padding: 100px;
+}
+
+.upload-container {
+    height: 100%; /* Ensure the body and html take full height */
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Add a background color for better visibility */
 }
 
 .heading {
     margin-top: 20px;
     text-align: center;
 }
-
 /* Update the #image-upload-section styles */
 #image-upload-section {
+    display: block;
     padding: 30px;
-    margin-bottom: 30px;
+    margin: 30px auto   ;
     border-radius: 15px;
-    justify-content: center;
     text-align: center;
     max-width: 600px; /* Set a maximum width to prevent it from stretching too wide */
-    margin: 0 auto; /* Center horizontally */
-    position: absolute; /* Position absolutely for vertical centering */
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%);
     font-family: Arial, Helvetica, sans-serif;
     box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2), 0px 3px 6px rgba(0, 0, 0, 0.12);
 }
@@ -34,4 +36,32 @@ body {
 .upload-label {
     font-weight: 900;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.uploaded-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.recipe-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+}
+
+.recipe { 
+    display: inline-block;
+    padding: 10px 10px;
+}
+
+.recipe-title {
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.ingredients-title {
+    font-weight: 700;
+    font-size: 15px;
 }
