@@ -43,3 +43,25 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.recipe-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+}
+
+.recipe { 
+    display: inline-block;
+    padding: 10px 10px;
+}
+
+.recipe-title {
+    font-weight: 900;
+    font-size: 20px;
+}
+
+.ingredients-title {
+    font-weight: 700;
+    font-size: 15px;
+}

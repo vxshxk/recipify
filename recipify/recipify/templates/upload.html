@@ -122,18 +122,38 @@
     <h2 class="text-2xl font-bold mb-4 flex justify-center">Uploaded Image</h2>
     <div class="uploaded-img"
         <div class="image-section mt-8 mx-24 max-w-lg">
-            
             <img src="{{ uploaded_file_url }}" alt="Uploaded Image" class="justify-center w-64 h-64">
         </div>
     </div>
     {% endif %}
     
     {% if recipes %}
-    <div class="recipe-section mt-8 mx-auto max-w-lg">
-        <h2 class="text-2xl font-bold mb-4 flex justify-center">Recipes</h2>
-        <p>{{ recipes }}</p>
+    <div class="heading my-0 text-center px-4">
+        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Recipes</span>
+        </h1>
+    </div>    
+    <div class="recipe-section">
+        {% for recipe in recipes %}
+        <div class="recipe">
+            <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div class="recipe-title">{{ recipe.name }}</div>
+                <div class="ingredients-title">Ingredients Required</div>
+                <ul class="list-disc">
+                    {% for ingredient in recipe.ingredients %}
+                        <li>{{ ingredient }}
+                    {% endfor %}
+                </ul>
+                <ol class="list-decimal">
+                    {% for step in recipe.method %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% endif %} 
+    {% endif %}
 
     {% block script %}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>

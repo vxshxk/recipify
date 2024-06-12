@@ -1,20 +1,18 @@
 from django.shortcuts import render
 from django.contrib import messages
-from django.shortcuts import HttpResponse, redirect
-from .forms import SignupForm, LoginForm, UploadFileForm
+from django.shortcuts import redirect
+from .forms import SignupForm, LoginForm
 from .models import FoodImage
+from .models import Recipe
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from inference_sdk import InferenceHTTPClient
-import google.generativeai as genai
 from django.core.files.storage import FileSystemStorage
 import base64
-import re
-from .utils import image_formatter
-from PIL import Image
 from .util_functions.gemini_call_fun import getRecipes
-import json
+from .util_functions.json_parser import parseRecipes
 import logging
+
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -126,10 +124,27 @@ def image_upload_view(request):
         if 'predictions' in result:
             ingredients = [prediction['class'] for prediction in result['predictions']]
             recipe_text = getRecipes(ingredients)
+            # Get parsed text from the JSON response
+            nRecipes, dishNames, ingredLists, recipeLists  = parseRecipes(recipe_text)  
             # Save the image to the FoodImage model
+            recipes = []
+            for i in range(nRecipes):
+                recipe = Recipe(name=dishNames[i],
+                                      ingredients=ingredLists[i],
+                                      method=recipeLists[i])
+                recipes.append(recipe)
+                recipe.save()
+                
+            
             food_image = FoodImage(image=filename)
             food_image.save()
-            return render(request, 'upload.html', {'recipes': recipe_text, 'uploaded_file_url': fs.url(filename)})
+            
+            # Load parsed text into context dictionary to display on page
+            context = {
+                'uploaded_file_url': fs.url(filename),
+                'recipes': recipes
+            }
+            return render(request, 'upload.html', context)
         else:
             error_message = "Failed to retrieve recipes."
             return render(request, 'upload.html', {'error_message': error_message})
