@@ -29,7 +29,7 @@ def index(request):
 
 @login_required
 def gallery(request):
-    images = FoodImage.objects.all()
+    images = FoodImage.objects.filter(user=request.user)
     context = {
         'images': images,
     }
@@ -136,7 +136,7 @@ def image_upload_view(request):
                 recipe.save()
                 
             
-            food_image = FoodImage(image=filename)
+            food_image = FoodImage(image=filename, user=request.user)
             food_image.save()
             
             # Load parsed text into context dictionary to display on page
