@@ -28,13 +28,13 @@
                 <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
                     <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
                         <li>
-                            <a href="{% url 'home' %}" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
+                            <a href="{% url 'home' %}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a>
                         </li>
                         <li>
                             <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
                         </li>
                         <li>
-                            <a href="{% url 'image_upload' %}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Upload</a>
+                            <a href="{% url 'image_upload' %}" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Upload</a>
                         </li>
                         <li>
                             <a href="{% url 'gallery' %}" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Gallery</a>
@@ -93,39 +93,83 @@
         </ul>
     </div>
 
-    <div class="heading mt-24 text-center px-4">
+    <div class="heading my-0 text-center px-4">
         <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Upload Section</span>
         </h1>
     </div>
-    
-    <div id="image-upload-section" class="image-upload-section mt-24 mx-auto max-w-lg px-4">
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label for="image-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Upload an image:</label>
-            <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
-                <input type="file" id="image-input" name="image-input" accept="image/*" class="block w-full sm:w-auto text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-            </div>
-            <button type="submit" class="mt-4 w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-        </form>
-    </div> 
+    <div class="upload-container">
+        <div id="image-upload-section" class="image-upload-section my-24 mx-auto max-w-lg px-4">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="image-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Upload an image:</label>
+                <div class="flex flex-col sm:flex-row items-center sm:space-x-4">
+                    <input type="file" id="image-input" name="image-input" accept="image/*" class="block w-full sm:w-auto text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                </div>
+                <div id="image-preview-container" class="mt-4 w-full h-48 overflow-hidden rounded-lg bg-gray-100 flex justify-center items-center">
+                    <img id="image-preview" class="max-w-full max-h-full" style="display: none;" />
+                </div>
+                <button type="submit" class="mt-4 w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+            </form>
+        </div>
+    </div>
 
     {% if uploaded_file_url %}
-    <div class="image-section mt-8 mx-auto max-w-lg">
-        <h2 class="text-2xl font-bold mb-4 flex justify-center">Uploaded Image</h2>
-        <img src="{{ uploaded_file_url }}" alt="Uploaded Image" class="max-w-full h-auto">
+    <h2 class="text-2xl font-bold mb-4 flex justify-center">Uploaded Image</h2>
+    <div class="uploaded-img"
+        <div class="image-section mt-8 mx-24 max-w-lg">
+            <img src="{{ uploaded_file_url }}" alt="Uploaded Image" class="justify-center w-64 h-64">
+        </div>
     </div>
     {% endif %}
     
     {% if recipes %}
-    <div class="recipe-section mt-8 mx-auto max-w-lg">
-        <h2 class="text-2xl font-bold mb-4 flex justify-center">Recipes</h2>
-        <p>{{ recipes }}</p>
+    <div class="heading my-0 text-center px-4">
+        <h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-orange-400">Recipes</span>
+        </h1>
+    </div>    
+    <div class="recipe-section">
+        {% for recipe in recipes %}
+        <div class="recipe">
+            <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div class="recipe-title">{{ recipe.name }}</div>
+                <div class="ingredients-title">Ingredients Required</div>
+                <ul class="list-disc">
+                    {% for ingredient in recipe.ingredients %}
+                        <li>{{ ingredient }}
+                    {% endfor %}
+                </ul>
+                <ol class="list-decimal">
+                    {% for step in recipe.method %}
+                        <li>{{ step }}</li>
+                    {% endfor %}
+                </ol>
+            </a>
+        </div>
+        {% endfor %}
     </div>
-    {% endif %} 
+    {% endif %}
 
     {% block script %}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script>
+        $(document).ready(function() {
+            $('#image-preview-container').hide();
+            $('#image-input').on('change', function() {
+                var file = this.files[0];
+                if(file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#image-preview-container').show();
+                        $('#image-preview').attr('src', e.target.result).show();
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+
+
         const menuButton = document.getElementById('menu-button');
         const sidebar = document.getElementById('sidebar');
         const closeSidebarButton = document.getElementById('close-sidebar');
