@@ -6,11 +6,12 @@ services:
       - 8000:8000
     volumes:
       - ./recipify:/app/recipify
+      - dbdata:/app/db.sqlite3
     networks:
       - app_network
   
-# created a network to link all services to
-# docker compose creates its own network but its better practice to mention your own network
+volumes:
+  dbdata: 
 networks:
   app_network:
     driver: bridge
