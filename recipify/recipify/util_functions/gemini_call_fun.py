@@ -40,7 +40,7 @@ def getRecipes(ingredients):
   try:
     response = model.generate_content("Give me the list of dishes and step by step recipe of how I can make using the following items: "
                                       +str(ingredients)
-                                      + " Give the output in the json of having one field list which is a list of Recipe = { dish_name: str , ingredients_required: numbered list, recipe: bullet list }  with only json part and without the text and quotes before or after")
+                                      + " Give the output in the json of having one field list which is a list of Recipe = { dish_name: str , ingredients_required: numbered list, recipe: bullet list }  with only json part and without the text and quotes before or after, and the 'list' field must be there even if there is only one recipe object")
     
     start_index = response.text.find('{')
     end_index = response.text.rfind('}') + 1

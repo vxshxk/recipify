@@ -46,8 +46,8 @@ body{
 
 .recipe-section {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: flex-center;
     
 }
 
