@@ -68,8 +68,8 @@ body{
 
 .upload-spinner {
     margin-top: 20px;
-    display: flex;
-    text-align: center;
-    align-content: center;
-    justify-content: center;
+}
+
+#spinner {
+    margin-left: 115px;
 }
