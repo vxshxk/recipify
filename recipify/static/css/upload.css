@@ -65,3 +65,11 @@ body{
     font-weight: 700;
     font-size: 15px;
 }
+
+.upload-spinner {
+    margin-top: 20px;
+}
+
+#spinner {
+    margin-left: 115px;
+}
