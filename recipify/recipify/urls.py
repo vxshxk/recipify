@@ -30,6 +30,7 @@ urlpatterns = [
     path("logout/", views.logoutPage, name="logout"),
     path("upload/", views.image_upload_view, name="image_upload"),
     path("gallery/", views.gallery, name="gallery"),
+    path("contact/",views.contact,name="contact"),
 ]
 
 if settings.DEBUG:
