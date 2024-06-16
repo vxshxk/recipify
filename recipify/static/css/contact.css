@@ -1,0 +1,8 @@
+body {
+    padding-top: 65px; /* Adjust based on the height of the nav bar */
+}
+
+.heading {
+    margin-top: 20px;
+    text-align: center;
+}
