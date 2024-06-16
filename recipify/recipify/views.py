@@ -56,6 +56,8 @@ def loginPage(request):
         form = LoginForm()
     return render(request, 'login.html', { 'form': form })
 
+def contact(request):
+    return render(request,'contact.html')
 
 def registerPage(request):
     if request.method == "POST":
