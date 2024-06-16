@@ -11,7 +11,10 @@ from django.core.files.storage import FileSystemStorage
 import base64
 from .util_functions.gemini_call_fun import getRecipes
 from .util_functions.json_parser import parseRecipes
+from .util_functions.json_parser import parseIngredients
+from.util_functions.gemini_call_fun import getIngredients
 import logging
+from PIL import Image
 
 
 # Configure logging
@@ -118,13 +121,10 @@ def image_upload_view(request):
         fs = FileSystemStorage()
         filename = fs.save(image.name, image)
         file_path = fs.path(filename)
-
-        with open(file_path, "rb") as img_file:
-            img_base64 = base64.b64encode(img_file.read()).decode('utf-8')
-
-        result = CLIENT.infer(img_base64, model_id="fridge-object/3")
-        if 'predictions' in result:
-            ingredients = [prediction['class'] for prediction in result['predictions']]
+        img = Image.open(file_path)
+        result = getIngredients(img)
+        ingredients = parseIngredients(result)
+        if ingredients:
             recipe_text = getRecipes(ingredients)
             # Get parsed text from the JSON response
             nRecipes, dishNames, ingredLists, recipeLists  = parseRecipes(recipe_text)  

@@ -39,3 +39,12 @@ def parseRecipes(recipeJson):
 # print(f"Dish Names: {dish_names}")
 # print(f"Ingredients List: {ingredients_list}")
 # print(f"Recipes List: {recipes_list}")
+
+
+def parseIngredients(ingredients):
+    ingredients_list = []
+
+    for item in ingredients['list']:
+        ingredients_list.append(item)
+    
+    return ingredients_list
