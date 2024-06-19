@@ -26,7 +26,6 @@ CLIENT = InferenceHTTPClient(
     api_key="DhYhkBrtp1M7KLVSxqPZ"
 )
 
-@login_required
 def index(request):
     return render(request, 'index.html')
 
@@ -114,7 +113,7 @@ def logoutPage(request):
     
 #     return render(request, 'upload.html', {'form': form, 'recipe': recipe_text})
 
-
+@login_required
 def image_upload_view(request):
     if request.method == 'POST' and 'image-input' in request.FILES:
         image = request.FILES['image-input']
