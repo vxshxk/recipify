@@ -127,13 +127,16 @@ def image_upload_view(request):
         if ingredients:
             recipe_text = getRecipes(ingredients)
             # Get parsed text from the JSON response
-            nRecipes, dishNames, ingredLists, recipeLists  = parseRecipes(recipe_text)  
+            nRecipes, dishNames, ingredLists, recipeLists, nutrients_present, nutrients_absent = parseRecipes(recipe_text)  
             # Save the image to the FoodImage model
             recipes = []
             for i in range(nRecipes):
                 recipe = Recipe(name=dishNames[i],
                                       ingredients=ingredLists[i],
-                                      method=recipeLists[i])
+                                      method=recipeLists[i],
+                                      nutrients_present=nutrients_present[i],
+                                      nutrients_absent=nutrients_absent[i],
+                                      )
                 recipes.append(recipe)
                 recipe.save()
                 
@@ -144,6 +147,7 @@ def image_upload_view(request):
             # Load parsed text into context dictionary to display on page
             context = {
                 'uploaded_file_url': fs.url(filename),
+                'recipe_len' : nRecipes,
                 'recipes': recipes
             }
             return render(request, 'upload.html', context)

@@ -1,16 +1,28 @@
+from .gemini_call_fun import getNutrition
+
 def parseRecipes(recipeJson):
     dish_names = []
     ingredients_list = []
     recipes_list = []
-
+    nutrients_present= [] 
+    nutrients_absent = []
+    
     for item in recipeJson['list']:
         dish_names.append(item['dish_name'])
+        parseNutrients(getNutrition(item['dish_name']), nutrients_present, nutrients_absent)
         ingredients_list.append(item['ingredients_required'])
         recipes_list.append(item['recipe'])
 
     num_recipes = len(recipeJson['list'])
 
-    return num_recipes, dish_names, ingredients_list, recipes_list
+    return num_recipes, dish_names, ingredients_list, recipes_list, nutrients_present, nutrients_absent
+
+def parseNutrients(nutrientJson, nutrients_present, nutrients_absent):
+
+        if nutrientJson['nutrients_present']:
+            nutrients_present.append(nutrientJson['nutrients_present'])
+        if nutrientJson['nutrients_absent']:
+            nutrients_absent.append(nutrientJson['nutrients_absent'])
 
 
 #DATA FOR TESTING

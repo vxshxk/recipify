@@ -137,25 +137,14 @@ def getNutrition(recipeName):
     generation_config=generation_config,
   )
   
-  try:
-    response = model.generate_content("Can you give me the nutritional breakdown of "+ str(recipeName) + ". It should include all the nutrients available in the meal, and the ones that are not"
+  response = model.generate_content("Can you give me the nutritional breakdown of "+ str(recipeName) + ". It should include all the nutrients available in the meal, and the ones that are not"
                                       + " Give the output in the format as List<Recipe> where Recipe = { dish_name: str , nutreints_present: bullet list, nutreints_absent: bullet list }") 
-    start_index = response.text.find('{')
-    end_index = response.text.rfind('}') + 1
-    jsonresponse = json.loads(response.text[start_index:end_index])
-  except:
-    jsonresponse = {
-    "list": [
-      {
-        "dish_name": "Sorry, some unknown error occured!",
-        "nutreints_present": ["Please try again!"],
-        "nutreints_absent": [" "]
-      }
-    ]
-  }
+  start_index = response.text.find('{')
+  end_index = response.text.rfind('}') + 1
+  jsonresponse = json.loads(response.text[start_index:end_index])
   return jsonresponse
 
 #print(getRecipes(["tomato", "onion", "potato", "soyabean", "soya sauce", "salt", "pepper", "chilli powder", "ginger", "garlic", "coriander", "cumin", "turmeric", "garam masala", "oil"]))
-#print(getNutrition("Simple Potato & Onion Curry"))
+print(getNutrition("Simple Potato & Onion Curry"))
 # img = Image.open('media/photo_2024-06-13_13-18-16_TKUg8Y0.jpg')
 # print(getIngredients(img))

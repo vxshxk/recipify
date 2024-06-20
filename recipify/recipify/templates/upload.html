@@ -155,6 +155,18 @@
                         <li>{{ step }}</li>
                     {% endfor %}
                 </ol>
+                <div class="ingredients-title">Nutrients Present</div>
+                <ul class="list-disc">
+                    {% for ingredient in recipe.nutrients_present %}
+                        <li>{{ ingredient }}
+                    {% endfor %}
+                </ul>
+                <div class="ingredients-title">Nutrients Absent</div>
+                <ul class="list-disc">
+                    {% for ingredient in recipe.nutrients_absent %}
+                        <li>{{ ingredient }}
+                    {% endfor %}
+                </ul>
             </a>
         </div>
         {% endfor %}
@@ -163,6 +175,25 @@
 
     {% block script %}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const openPopupButton = document.getElementById('open-popup');
+            const closePopupButton = document.getElementById('close-popup');
+            const popup = document.getElementById('popup');
+            
+            openPopupButton.addEventListener('click', () => {
+                popup.classList.remove('hidden');
+            });
+            
+            closePopupButton.addEventListener('click', () => {
+                popup.classList.add('hidden');
+            });
+
+            function cls() {
+
+            }
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#image-preview-container').hide();
@@ -183,10 +214,20 @@
         $('#submit-button-js').click(function() {
             $('.upload-spinner').show();
         });
+        
+        // Handle modal popup
+        $(document).on('click', '.open-modal-btn', function() {
+            $(this).siblings('.modal-box').addClass('open-popup');
+        });
+
+        $(document).on('click', '.close-modal-btn', function() {
+            $(this).closest('.modal-box').removeClass('open-popup');
+        });
+
         const menuButton = document.getElementById('menu-button');
         const sidebar = document.getElementById('sidebar');
         const closeSidebarButton = document.getElementById('close-sidebar');
-    
+
         menuButton.addEventListener('click', () => {
             sidebar.classList.toggle('-translate-x-full');
         });

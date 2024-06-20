@@ -13,3 +13,5 @@ class Recipe(models.Model):
     name = models.CharField(max_length=250)
     ingredients = models.TextField()
     method = models.TextField()
+    nutrients_present = models.TextField(null=True)
+    nutrients_absent = models.TextField(null=True)
