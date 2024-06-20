@@ -18,11 +18,8 @@ def parseRecipes(recipeJson):
     return num_recipes, dish_names, ingredients_list, recipes_list, nutrients_present, nutrients_absent
 
 def parseNutrients(nutrientJson, nutrients_present, nutrients_absent):
-
-        if nutrientJson['nutrients_present']:
-            nutrients_present.append(nutrientJson['nutrients_present'])
-        if nutrientJson['nutrients_absent']:
-            nutrients_absent.append(nutrientJson['nutrients_absent'])
+    nutrients_present.append(nutrientJson['nutrients_present'])
+    nutrients_absent.append(nutrientJson['nutrients_absent'])
 
 
 #DATA FOR TESTING
