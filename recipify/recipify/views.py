@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.shortcuts import redirect
 from .forms import SignupForm, LoginForm
@@ -126,23 +126,26 @@ def image_upload_view(request):
         if ingredients:
             recipe_text = getRecipes(ingredients)
             # Get parsed text from the JSON response
-            nRecipes, dishNames, ingredLists, recipeLists  = parseRecipes(recipe_text)  
+            nRecipes, dishNames, ingredLists, recipeLists, nutrients_present, nutrients_absent = parseRecipes(recipe_text)  
             # Save the image to the FoodImage model
             recipes = []
+            food_image = FoodImage(image=filename, user=request.user)
+            food_image.save()
             for i in range(nRecipes):
                 recipe = Recipe(name=dishNames[i],
                                       ingredients=ingredLists[i],
-                                      method=recipeLists[i])
+                                      method=recipeLists[i],
+                                      nutrients_present=nutrients_present[i],
+                                      nutrients_absent=nutrients_absent[i],
+                                      image=food_image,
+                                      )
                 recipes.append(recipe)
                 recipe.save()
                 
-            
-            food_image = FoodImage(image=filename, user=request.user)
-            food_image.save()
-            
             # Load parsed text into context dictionary to display on page
             context = {
                 'uploaded_file_url': fs.url(filename),
+                'recipe_len' : nRecipes,
                 'recipes': recipes
             }
             return render(request, 'upload.html', context)
@@ -152,4 +155,34 @@ def image_upload_view(request):
     else:
         error_message = "No image file uploaded."
         return render(request, 'upload.html', {'error_message': error_message})
+
+def show_recipe(request, id):
+
+    recipe = get_object_or_404(Recipe, id=id)
+    recipeName = recipe.name
+    ingredients = recipe.ingredients.replace("[", "").replace("]", "").replace("'", "").split(',')
+    steps = recipe.method.split("',")
+    steps = [clean(step) for step in steps]
+    nutri_present = recipe.nutrients_present.split("',")
+    nutri_present = [clean(nutri) for nutri in nutri_present]
+    nutri_absent = recipe.nutrients_absent.split("',")
+    nutri_absent = [clean(nutri) for nutri in nutri_absent]
+    img = recipe.image
+    context = {
+        "ingredients": ingredients,
+        "recipeName":recipeName,
+        "steps": steps,
+        "nutri_present": nutri_present,
+        "nutri_absent": nutri_absent,
+        "foodimg": img,
+
+    }
+    return render(request, 'show.html', context)
+
+def clean(item):
+    filter_chars = ["'", "[", "]"]
+    for char in filter_chars:
+        item = item.replace(char, "")
+
+    return item.capitalize()
 

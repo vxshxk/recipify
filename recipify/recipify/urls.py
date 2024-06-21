@@ -31,6 +31,7 @@ urlpatterns = [
     path("upload/", views.image_upload_view, name="image_upload"),
     path("gallery/", views.gallery, name="gallery"),
     path("contact/",views.contact,name="contact"),
+    path("show_recipe/<int:id>", views.show_recipe, name="show_recipe"),
 ]
 
 if settings.DEBUG:

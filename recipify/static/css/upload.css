@@ -47,18 +47,28 @@ body{
 .recipe-section {
     display: flex;
     justify-content: center;
-    align-items: flex-center;
-    
+    align-items: flex-start; 
 }
 
 .recipe { 
     display: inline-block;
     padding: 10px 10px;
+    min-width: 300px; 
+    max-width: 100%; 
+    overflow: auto; 
+    box-sizing: border-box; 
 }
 
 .recipe-title {
     font-weight: 900;
     font-size: 20px;
+    white-space: nowrap; 
+    overflow: break-word;
+    text-overflow: ellipsis; 
+    min-width: 300px; 
+    max-width: 100%; 
+    overflow: auto; 
+    box-sizing: border-box;
 }
 
 .ingredients-title {
@@ -66,10 +76,32 @@ body{
     font-size: 15px;
 }
 
+
 .upload-spinner {
     margin-top: 20px;
 }
 
 #spinner {
     margin-left: 115px;
+}
+
+.modal-box {
+    width: 400px;
+    background: #ffff;
+    border-radius: 6px;
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    transform: translate(90%, 90%);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    visibility: visible;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.modal-box .open-popup {
+    visibility: visible;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
 }

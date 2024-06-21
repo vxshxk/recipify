@@ -1,5 +1,6 @@
 import google.generativeai as genai
 import json
+import traceback
 from PIL import Image
 
 genai.configure(api_key='AIzaSyCs_q7nIoDNyST3L8A8c_kBb2Tkd9OhJpk')
@@ -139,23 +140,23 @@ def getNutrition(recipeName):
   
   try:
     response = model.generate_content("Can you give me the nutritional breakdown of "+ str(recipeName) + ". It should include all the nutrients available in the meal, and the ones that are not"
-                                      + " Give the output in the format as List<Recipe> where Recipe = { dish_name: str , nutreints_present: bullet list, nutreints_absent: bullet list }") 
+                                        + " Give the output in the json format { dish_name: str , nutrients_present: bullet list, nutrients_absent: bullet list } with field names in double quotes and with only json part and without the text and quotes before or after") 
     start_index = response.text.find('{')
     end_index = response.text.rfind('}') + 1
     jsonresponse = json.loads(response.text[start_index:end_index])
-  except:
+    print(response.text)
+    
+  except Exception as e:
+    # print(e)
+    # print(traceback.format_exc())
     jsonresponse = {
-    "list": [
-      {
-        "dish_name": "Sorry, some unknown error occured!",
-        "nutreints_present": ["Please try again!"],
-        "nutreints_absent": [" "]
-      }
-    ]
-  }
+    "dish_name": "ERROR!",
+    "nutrients_present": ["Sorry, some unknown error occured!"],
+    "nutrients_absent": ["Please try again!"]
+    }
   return jsonresponse
 
 #print(getRecipes(["tomato", "onion", "potato", "soyabean", "soya sauce", "salt", "pepper", "chilli powder", "ginger", "garlic", "coriander", "cumin", "turmeric", "garam masala", "oil"]))
-#print(getNutrition("Simple Potato & Onion Curry"))
+# print(getNutrition("Simple Potato & Onion Curry"))
 # img = Image.open('media/photo_2024-06-13_13-18-16_TKUg8Y0.jpg')
 # print(getIngredients(img))
