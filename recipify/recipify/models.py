@@ -15,3 +15,4 @@ class Recipe(models.Model):
     method = models.TextField()
     nutrients_present = models.TextField(null=True)
     nutrients_absent = models.TextField(null=True)
+    image = models.ForeignKey(FoodImage, null=True, on_delete=models.CASCADE)

@@ -1,0 +1,81 @@
+body {
+    padding-top: 65px; /* Adjust based on the height of the nav bar */
+}
+
+.buttons {
+    padding-left: 50px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.recipe-title {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recipe-ingredients {
+    display: flex;
+    gap: 15rem;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 25px;
+    border: solid rgba(0, 0, 0, 0.422);
+    border-radius: 10px;
+    border-width: 1px;
+    margin-top: 60px;
+    margin-right: 60px;
+    margin-left: 60px;
+    font-size:x-large;
+}
+
+
+.recipe-wrapper {
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 60px;
+    margin-right: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.nutrition,
+.recipe-method {
+    text-align: left;
+    padding: 25px;
+    border: solid rgba(0, 0, 0, 0.422);
+    border-radius: 10px;
+    border-width: 1px;
+    width: 100%;
+}
+
+.nutrition-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.nutrition-present,
+.nutrition-absent {
+    width: 100%;
+    text-align: left;
+    padding: 25px;
+    border: solid rgba(0, 0, 0, 0.422);
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+.recipe-img {
+    max-height: 100%;
+    max-width: 100%;
+    height: auto;
+    width: auto;
+
+}
