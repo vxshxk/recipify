@@ -10,7 +10,7 @@ body {
 }
 
 .recipe-title {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 20px;
     white-space: nowrap; 
     overflow: break-word;
@@ -31,6 +31,12 @@ body {
 
 
 .ingredients-title {
-    font-weight: 700;
-    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.list_disc{
+    margin-top: 20px;
 }
