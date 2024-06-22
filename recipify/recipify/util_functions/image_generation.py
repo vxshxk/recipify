@@ -14,9 +14,8 @@ def getDishImage(dishname):
 
     response = requests.request("GET", url, headers=headers, data=payload)
     ans = json.loads(response.text)
-    fin = ans['results']['results']['inline_images'][0]['image']
-    base64_data = fin.split(",")[1]
-    return base64_data
+    image_base_64 = ans['results']['results']['inline_images'][0]['image']
+    return image_base_64
 
 def add_base64_padding(base64_string):
     missing_padding = len(base64_string) % 4
