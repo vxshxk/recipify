@@ -138,7 +138,10 @@ def show_recipe(request, id):
     nutri_present = [clean(nutri) for nutri in nutri_present]
     nutri_absent = recipe.nutrients_absent.split("',")
     nutri_absent = [clean(nutri) for nutri in nutri_absent]
-    img = getDishImage(recipeName)
+    try: 
+        img = getDishImage(recipeName)
+    except: 
+        img = recipe.image
         
     context = {
         "ingredients": ingredients,
