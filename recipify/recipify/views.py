@@ -15,8 +15,6 @@ from .util_functions.json_parser import parseRecipes
 from .util_functions.json_parser import parseIngredients
 from.util_functions.gemini_call_fun import getIngredients
 from.util_functions.image_generation import getDishImage
-from.util_functions.image_generation import add_base64_padding
-from.util_functions.image_generation import decode_base64_to_image
 
 import logging
 from PIL import Image
