@@ -14,6 +14,8 @@ from .util_functions.gemini_call_fun import getRecipes
 from .util_functions.json_parser import parseRecipes
 from .util_functions.json_parser import parseIngredients
 from.util_functions.gemini_call_fun import getIngredients
+from.util_functions.image_generation import getDishImage
+
 import logging
 from PIL import Image
 
@@ -134,7 +136,8 @@ def show_recipe(request, id):
     nutri_present = [clean(nutri) for nutri in nutri_present]
     nutri_absent = recipe.nutrients_absent.split("',")
     nutri_absent = [clean(nutri) for nutri in nutri_absent]
-    img = recipe.image
+    img = getDishImage(recipeName)
+        
     context = {
         "ingredients": ingredients,
         "recipeName":recipeName,
