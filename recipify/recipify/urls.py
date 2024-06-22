@@ -32,6 +32,7 @@ urlpatterns = [
     path("gallery/", views.gallery, name="gallery"),
     path("contact/",views.contact,name="contact"),
     path("show_recipe/<int:id>", views.show_recipe, name="show_recipe"),
+    path("pick_recipe/<int:img_id>", views.pick_recipe, name="pick_recipe")
 ]
 
 if settings.DEBUG:

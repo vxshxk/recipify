@@ -79,40 +79,6 @@ def logoutPage(request):
     logout(request)
     return redirect('login')
 
-# def image_upload_view(request):
-#     recipe_text = None  # Initialize recipe_text to avoid UnboundLocalError
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             img_instance = form.save()
-#             # Open the image using PIL
-#             try:
-#                 img = Image.open(img_instance.image.path)
-#             except IOError:
-#                 return HttpResponse("Image not found or cannot be opened.", status=404)
-            
-#             # Process the image with CLIENT.infer
-#             try:
-#                 result = CLIENT.infer(img, model_id="fridge-object/3")
-#                 logger.debug("Infer result: %s", result)
-#                 ingredients = [prediction['class'] for prediction in result['predictions']]
-                
-#                 # Get recipes using the detected ingredients
-#                 recipe_text = getRecipes(ingredients)
-#                 if not recipe_text:
-#                     messages.error(request, "Failed to retrieve recipes.")
-                
-#                 # Optionally, you can process the image
-#                 processed_image = image_formatter(img)
-#                 print(processed_image)
-#             except json.JSONDecodeError as e:
-#                 logger.error("JSON decode error: %s", e)
-#                 return HttpResponse(f"Error processing image: {e}", status=500)
-#     else:
-#         form = UploadFileForm()
-    
-#     return render(request, 'upload.html', {'form': form, 'recipe': recipe_text})
-
 @login_required
 def image_upload_view(request):
     if request.method == 'POST' and 'image-input' in request.FILES:
@@ -185,4 +151,14 @@ def clean(item):
         item = item.replace(char, "")
 
     return item.capitalize()
+
+
+def pick_recipe(request, img_id):
+    image = get_object_or_404(FoodImage, id=img_id)
+    recipes = Recipe.objects.filter(image=image)
+    context = {
+        "recipes": recipes
+    }
+
+    return render(request, 'pick.html', context)
 
