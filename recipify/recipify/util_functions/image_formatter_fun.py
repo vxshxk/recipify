@@ -31,10 +31,10 @@ def imageFormatter(img):
     proc = cv2.resize(proc, (640,640))
     
     # Print the shape of the image
-    print("Image shape:")
-    print(proc.shape)
-    print("Image matrix:")
-    print(proc)
+    # print("Image shape:")
+    # print(proc.shape)
+    # print("Image matrix:")
+    # print(proc)
     
     return proc
 
