@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.urls import reverse
 from .forms import SignupForm, LoginForm
 from .models import FoodImage
 from .models import Recipe
@@ -161,4 +162,16 @@ def pick_recipe(request, img_id):
     }
 
     return render(request, 'pick.html', context)
+
+def delete_recipe(request, id):
+    recipe = get_object_or_404(Recipe, id=id)
+    img = recipe.image
+    recipe.delete()
+
+    associated_recipes = img.recipe_set.all()
+    if not associated_recipes:
+        img.delete()
+        return redirect(reverse('gallery'))
+
+    return redirect(reverse('pick_recipe', args=[img.id]))
 
