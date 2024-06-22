@@ -21,3 +21,10 @@
     max-height: 100%;
 }
 
+.hover-highlight {
+    transition: box-shadow 0.3s ease-in-out; /* Smooth transition */
+}
+
+.hover-highlight:hover {
+    opacity: 75%;
+}

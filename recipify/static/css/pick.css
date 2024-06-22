@@ -1,0 +1,42 @@
+body {
+    padding-top: 65px; /* Adjust based on the height of the nav bar */
+}
+
+.recipe-display {
+    display: flex;
+    gap: 100px;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.recipe-title {
+    font-weight: 700;
+    font-size: 20px;
+    white-space: nowrap; 
+    overflow: break-word;
+    text-overflow: ellipsis; 
+    min-width: 300px; 
+    max-width: 100%; 
+    overflow: auto; 
+    box-sizing: border-box;
+}
+
+.recipe-section {
+    margin-top: 100px;
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    align-items: flex-start; 
+}
+
+
+.ingredients-title {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.list_disc{
+    margin-top: 20px;
+}

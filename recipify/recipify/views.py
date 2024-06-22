@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.urls import reverse
 from .forms import SignupForm, LoginForm
 from .models import FoodImage
 from .models import Recipe
@@ -26,7 +27,6 @@ CLIENT = InferenceHTTPClient(
     api_key="DhYhkBrtp1M7KLVSxqPZ"
 )
 
-@login_required
 def index(request):
     return render(request, 'index.html')
 
@@ -80,41 +80,7 @@ def logoutPage(request):
     logout(request)
     return redirect('login')
 
-# def image_upload_view(request):
-#     recipe_text = None  # Initialize recipe_text to avoid UnboundLocalError
-#     if request.method == 'POST':
-#         form = UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             img_instance = form.save()
-#             # Open the image using PIL
-#             try:
-#                 img = Image.open(img_instance.image.path)
-#             except IOError:
-#                 return HttpResponse("Image not found or cannot be opened.", status=404)
-            
-#             # Process the image with CLIENT.infer
-#             try:
-#                 result = CLIENT.infer(img, model_id="fridge-object/3")
-#                 logger.debug("Infer result: %s", result)
-#                 ingredients = [prediction['class'] for prediction in result['predictions']]
-                
-#                 # Get recipes using the detected ingredients
-#                 recipe_text = getRecipes(ingredients)
-#                 if not recipe_text:
-#                     messages.error(request, "Failed to retrieve recipes.")
-                
-#                 # Optionally, you can process the image
-#                 processed_image = image_formatter(img)
-#                 print(processed_image)
-#             except json.JSONDecodeError as e:
-#                 logger.error("JSON decode error: %s", e)
-#                 return HttpResponse(f"Error processing image: {e}", status=500)
-#     else:
-#         form = UploadFileForm()
-    
-#     return render(request, 'upload.html', {'form': form, 'recipe': recipe_text})
-
-
+@login_required
 def image_upload_view(request):
     if request.method == 'POST' and 'image-input' in request.FILES:
         image = request.FILES['image-input']
@@ -130,20 +96,19 @@ def image_upload_view(request):
             nRecipes, dishNames, ingredLists, recipeLists, nutrients_present, nutrients_absent = parseRecipes(recipe_text)  
             # Save the image to the FoodImage model
             recipes = []
+            food_image = FoodImage(image=filename, user=request.user)
+            food_image.save()
             for i in range(nRecipes):
                 recipe = Recipe(name=dishNames[i],
                                       ingredients=ingredLists[i],
                                       method=recipeLists[i],
                                       nutrients_present=nutrients_present[i],
                                       nutrients_absent=nutrients_absent[i],
+                                      image=food_image,
                                       )
                 recipes.append(recipe)
                 recipe.save()
                 
-            
-            food_image = FoodImage(image=filename, user=request.user)
-            food_image.save()
-            
             # Load parsed text into context dictionary to display on page
             context = {
                 'uploaded_file_url': fs.url(filename),
@@ -157,4 +122,56 @@ def image_upload_view(request):
     else:
         error_message = "No image file uploaded."
         return render(request, 'upload.html', {'error_message': error_message})
+
+def show_recipe(request, id):
+
+    recipe = get_object_or_404(Recipe, id=id)
+    recipeName = recipe.name
+    ingredients = recipe.ingredients.replace("[", "").replace("]", "").replace("'", "").split(',')
+    steps = recipe.method.split("',")
+    steps = [clean(step) for step in steps]
+    nutri_present = recipe.nutrients_present.split("',")
+    nutri_present = [clean(nutri) for nutri in nutri_present]
+    nutri_absent = recipe.nutrients_absent.split("',")
+    nutri_absent = [clean(nutri) for nutri in nutri_absent]
+    img = recipe.image
+    context = {
+        "ingredients": ingredients,
+        "recipeName":recipeName,
+        "steps": steps,
+        "nutri_present": nutri_present,
+        "nutri_absent": nutri_absent,
+        "foodimg": img,
+
+    }
+    return render(request, 'show.html', context)
+
+def clean(item):
+    filter_chars = ["'", "[", "]"]
+    for char in filter_chars:
+        item = item.replace(char, "")
+
+    return item.capitalize()
+
+
+def pick_recipe(request, img_id):
+    image = get_object_or_404(FoodImage, id=img_id)
+    recipes = Recipe.objects.filter(image=image)
+    context = {
+        "recipes": recipes
+    }
+
+    return render(request, 'pick.html', context)
+
+def delete_recipe(request, id):
+    recipe = get_object_or_404(Recipe, id=id)
+    img = recipe.image
+    recipe.delete()
+
+    associated_recipes = img.recipe_set.all()
+    if not associated_recipes:
+        img.delete()
+        return redirect(reverse('gallery'))
+
+    return redirect(reverse('pick_recipe', args=[img.id]))
 
