@@ -35,6 +35,3 @@ def decode_base64_to_image(base64_string):
 # image = decode_base64_to_image(dish_image_base64)
 # image.show()
 
-
-#search api nddeuNFHxu2hxN0wzW8euCXbUOawG25WLnpNFdiggt8q4wPKiWTx8AS9T1Iw
-#OpenAi API key sk-proj-EkiVAiYj6RMUMTTCaW4ET3BlbkFJEOL0xhWuwok3HOfjEW46
