@@ -99,7 +99,7 @@
         {% for image in images %}
         <div>
             <a href="{% url 'pick_recipe' image.id %}">
-            <img class="h-auto max-w-full rounded-lg" src="{{ image.image.url }}" alt="Gallery image" />
+            <img class="h-auto max-w-full rounded-lg hover-highlight" src="{{ image.image.url }}" alt="Gallery image" />
             </a>
         </div>
         {% endfor %}
