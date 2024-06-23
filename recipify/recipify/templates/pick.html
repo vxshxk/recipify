@@ -102,8 +102,11 @@
                 <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                     <div class="recipe-title">{{ recipe.name }}</div>
                     <div class="ingredients-title">Ingredients Required</div>
+                    <div class="ingredients-title">Recipe</div>
                     <ul style="margin-bottom: 20px;" class="list-disc">
-                        {{recipe.ingredients}}
+                        {% for ing in recipe.ingredients %}
+                        <li>{{ ing }}</li>
+                        {% endfor %}
                     </ul>
                     <button type="button"
                     onclick="window.location.href='{% url 'show_recipe' recipe.id %}'" 
