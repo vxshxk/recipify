@@ -70,7 +70,7 @@
         </button>
         <ul class="flex flex-col p-4 mt-4 space-y-2 font-medium border border-gray-700 rounded-lg bg-gray-800">
             <li>
-                <a href="{% url 'home' %}" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700" aria-current="page">Home</a>
+                <a href="{% url 'home' %}" class="block py-2 px-3 text-white rounded hover:bg-gray-700">Home</a>
             </li>
             <li>
                 <a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-700">About</a>
@@ -96,26 +96,55 @@
         </ul>
     </div>
 
-        <div class="recipe-section">
-            {% for recipe in recipes %}
-            <div class="recipe">
-                <a href="#" class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                    <div class="recipe-title">{{ recipe.name }}</div>
-                    <div class="ingredients-title">Ingredients Required</div>
-                    <ul style="margin-bottom: 20px;" class="list-disc">
-                        {{recipe.ingredients}}
-                    </ul>
-                    <button type="button"
-                    onclick="window.location.href='{% url 'show_recipe' recipe.id %}'" 
-                    class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Show Recipe
+    <div class="recipe-section flex flex-wrap justify-center gap-6">
+        {% for recipe in recipes %}
+        <div class="recipe max-w-sm w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 p-4">
+            <a href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                <div class="recipe-title text-xl font-semibold mb-2">{{ recipe.name }}</div>
+                <div class="ingredients-title font-medium text-gray-700 dark:text-gray-300 mb-2">Ingredients Required</div>
+                <ul class="list-disc pl-5 mb-4 text-gray-600 dark:text-gray-400">
+                    {{recipe.ingredients}}
+                </ul>
+                <div class="flex justify-between">
+                    <button type="button" onclick="window.location.href='{% url 'show_recipe' recipe.id %}'" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        Show Recipe
                     </button>
-                    <button type="button"
-                    onclick="window.location.href='{% url 'delete_recipe' recipe.id %}'" 
-                    class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Delete Recipe
+                    <button type="button" onclick="window.location.href='{% url 'delete_recipe' recipe.id %}'" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                        Delete Recipe
                     </button>
-                </a>
-            </div>
-            {% endfor %}
+                </div>
+            </a>
         </div>
+        {% endfor %}
+    </div>
+    
+
+        <script>
+
+            const menuButton = document.getElementById('menu-button');
+            const sidebar = document.getElementById('sidebar');
+            const closeSidebarButton = document.getElementById('close-sidebar');
+        
+            menuButton.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+        
+            closeSidebarButton.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+            $(document).ready(function() {
+                // Convert django messages to toastr notifications
+                $('#messages .alert').each(function() {
+                    var message = $(this).text().trim();
+                    var type = $(this).hasClass('alert-error') ? 'error' : 'success';
+                    toastr[type](message);
+                });
+    
+            });
+    
+            $('#messages').hide();
+    
+        </script>
+    
 </body>
 </html>
