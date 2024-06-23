@@ -5,6 +5,7 @@ from django.urls import reverse
 from .forms import SignupForm, LoginForm
 from .models import FoodImage
 from .models import Recipe
+from .models import DishImage
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from inference_sdk import InferenceHTTPClient
@@ -108,8 +109,18 @@ def image_upload_view(request):
                                       nutrients_absent=nutrients_absent[i],
                                       image=food_image,
                                       )
+                
                 recipes.append(recipe)
                 recipe.save()
+                dish_img = getDishImage(dishNames[i])
+    
+                if dish_img:  # Ensure dish_img is not None or empty
+                    dimg = DishImage(image=dish_img, recipe=recipe)
+                    dimg.save()
+                else:
+                    dimg = DishImage(image="https://static.vecteezy.com/system/resources/previews/000/542/269/original/healthy-food-vector.jpg", recipe=recipe)
+                    dimg.save()
+                
                 
             # Load parsed text into context dictionary to display on page
             context = {
@@ -136,10 +147,11 @@ def show_recipe(request, id):
     nutri_present = [clean(nutri) for nutri in nutri_present]
     nutri_absent = recipe.nutrients_absent.split("',")
     nutri_absent = [clean(nutri) for nutri in nutri_absent]
-    try: 
-        img = getDishImage(recipeName)
-    except: 
-        img = recipe.image
+    img = get_object_or_404(DishImage, recipe=recipe)
+    # try: 
+    #     img = getDishImage(recipeName)
+    # except: 
+    #     img = recipe.image
         
     context = {
         "ingredients": ingredients,
