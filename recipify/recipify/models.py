@@ -16,3 +16,7 @@ class Recipe(models.Model):
     nutrients_present = models.TextField(null=True)
     nutrients_absent = models.TextField(null=True)
     image = models.ForeignKey(FoodImage, null=True, on_delete=models.CASCADE)
+
+class DishImage(models.Model):
+    image = models.URLField()
+    recipe = models.OneToOneField(Recipe, null=True, on_delete=models.CASCADE)
