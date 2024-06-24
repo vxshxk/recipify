@@ -1,5 +1,5 @@
 body {
-    padding-top: 65px; /* Adjust based on the height of the nav bar */
+    padding-top: 65px;
 }
 
 .buttons {
@@ -41,7 +41,7 @@ body {
     justify-content: space-between;
     align-items: flex-start;
     gap: 20px;
-}
+} 
 
 .nutrition,
 .recipe-method {
@@ -75,5 +75,4 @@ body {
 .recipe-img {
     height: 400px;
     width: 400px;
-
 }
