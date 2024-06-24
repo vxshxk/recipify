@@ -30,7 +30,8 @@ SECRET_KEY = 'django-insecure-k&)ln$o#fs&u9k+^xjgjm-r6o7#6xr@35))_(mts8ib2y0=ume
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "recipify-9113.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://recipify-9113.onrender.com"]
 
 
 # Application definition
