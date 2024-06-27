@@ -70,7 +70,7 @@
         </button>
         <ul class="flex flex-col p-4 mt-4 space-y-2 font-medium border border-gray-700 rounded-lg bg-gray-800">
             <li>
-                <a href="{% url 'home' %}" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700" aria-current="page">Home</a>
+                <a href="{% url 'home' %}" class="block py-2 px-3 text-white rounded hover:bg-gray-700">Home</a>
             </li>
             <li>
                 <a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-700">About</a>
@@ -173,6 +173,33 @@
             </div>
         </div>
     </div>
+
+    <script>
+
+        const menuButton = document.getElementById('menu-button');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebarButton = document.getElementById('close-sidebar');
+    
+        menuButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+    
+        closeSidebarButton.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+        $(document).ready(function() {
+            // Convert django messages to toastr notifications
+            $('#messages .alert').each(function() {
+                var message = $(this).text().trim();
+                var type = $(this).hasClass('alert-error') ? 'error' : 'success';
+                toastr[type](message);
+            });
+
+        });
+
+        $('#messages').hide();
+
+    </script>
     
 
 </body>
