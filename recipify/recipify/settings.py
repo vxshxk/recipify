@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # GET API KEYS
 env = environ.Env()
 environ.Env.read_env()
-GEMINI_KEY = env("GEMINI_KEY")
-UNSPLASH_KEY = env("UNSPLASH_KEY")
+GEMINI_KEY = env("GEMINI_KEY", default="unsafe-gemini-key")
+UNSPLASH_KEY = env("UNSPLASH_KEY", default="unsafe-unsplash-key")
 
 # Handle MIME types
 import mimetypes
