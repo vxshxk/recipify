@@ -6,3 +6,4 @@ matplotlib==3.9.0
 opencv-python==4.9.0.80
 inference_sdk==0.11.2
 google-generativeai==0.5.4
+django-environ==0.11.2

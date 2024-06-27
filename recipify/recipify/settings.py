@@ -11,11 +11,17 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
+import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# GET API KEYS
+env = environ.Env()
+environ.Env.read_env()
+GEMINI_KEY = env("GEMINI_KEY", default="unsafe-gemini-key")
+UNSPLASH_KEY = env("UNSPLASH_KEY", default="unsafe-unsplash-key")
 
 # Handle MIME types
 import mimetypes
