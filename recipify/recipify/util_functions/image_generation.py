@@ -1,5 +1,6 @@
 import requests
 import json
+from recipify.settings import UNSPLASH_KEY
 
 # def add_base64_padding(base64_string):
 #     missing_padding = len(base64_string) % 4
@@ -14,7 +15,7 @@ import json
 #     return image
 
 def getDishImage(dishname):
-    client_ID = "94XalRwyaaUtAh8AuRoE_gp3QmvntuuFI_otx2Wsvso"
+    client_ID = UNSPLASH_KEY
     url = "https://api.unsplash.com/search/photos/?client_id=" + client_ID + "&query=" + dishname
     
     

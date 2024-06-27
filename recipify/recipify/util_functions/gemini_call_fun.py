@@ -1,9 +1,8 @@
 import google.generativeai as genai
 import json
-import traceback
-from PIL import Image
+from recipify.settings import GEMINI_KEY
 
-genai.configure(api_key='AIzaSyCs_q7nIoDNyST3L8A8c_kBb2Tkd9OhJpk')
+genai.configure(api_key=GEMINI_KEY)
 
 def getIngredients(img):
   generation_config = {
