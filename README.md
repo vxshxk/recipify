@@ -17,7 +17,12 @@ git clone https://github.com/vxshxk/recipify.git
 python -m pip install -r requirements.txt
 ```
 5. `cd` into the `recipify/` directory
-6. To do the migrations, enter the command (needs to be entered only once)
+6. Copy the environment file by doing
+```
+cp env.example .env
+```
+8. Get API keys from [Unsplash](https://unsplash.com/developers) and [Gemini](https://ai.google.dev/) and past them in the .env file
+9. To do the migrations, enter the command (needs to be entered only once)
 ```
 python manage.py migrate
 ```
@@ -47,10 +52,10 @@ docker compose up
 4. Pray for it to be merged
 
 ----------------------------------------------------------------------------
-## Frameworks
+## References
+1. [Django Documentation](https://docs.djangoproject.com/en/5.0/)
+2. [Gemini API Documentation](https://ai.google.dev/gemini-api/docs)
+3. [Unsplash API Documentation](https://unsplash.com/documentation)
 
-----------------------------------------------------------------------------
-
-## Documentation 
 
 
