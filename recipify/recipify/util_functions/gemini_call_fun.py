@@ -3,7 +3,7 @@ import json
 import traceback
 from PIL import Image
 
-genai.configure(api_key='AIzaSyCs_q7nIoDNyST3L8A8c_kBb2Tkd9OhJpk')
+genai.configure(api_key='AIzaSyAWhx8BQs0aswBwBcQCuXft70klw--M0xA')
 
 def getIngredients(img):
   generation_config = {
